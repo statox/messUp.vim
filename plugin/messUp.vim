@@ -43,6 +43,8 @@ function! RandomizeString(string)
 
         let i=i+1
     endwhile
+
+    return res
 endfunction
 
 function! GetSelectedText()
@@ -52,9 +54,20 @@ function! GetSelectedText()
     return result
 endfunc
 
-function! ReplaceSelectedText()
+function! ReverseSelectedText()
     " Get the string to insert
     let @x = ReverseString(GetSelectedText())
+    
+    " remove the old selection
+    normal gvd
+
+    " insert the new string
+    normal "xp
+endfunction
+
+function! ShuffleSelectedText()
+    " Get the string to insert
+    let @x = RandomizeString(GetSelectedText())
     
     " remove the old selection
     normal gvd
