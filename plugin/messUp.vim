@@ -75,3 +75,7 @@ function! ShuffleSelectedText()
     " insert the new string
     normal "xp
 endfunction
+
+function! Wrapper(functionToExecute)
+    return call('a:functionToExecute')
+endfunction
