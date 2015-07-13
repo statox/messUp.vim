@@ -1,6 +1,5 @@
 " File: messUp.vim
 " Author: Adrien Fabre (statox)
-"
 
 " reverse the order of the letters in the parameter string
 " params:   string:     the string to reverse
@@ -47,6 +46,7 @@ function! RandomizeString(string)
     return res
 endfunction
 
+" returns the last text selected
 function! GetSelectedText()
     normal gv"xy
     let result = getreg("x")
@@ -54,28 +54,18 @@ function! GetSelectedText()
     return result
 endfunc
 
-function! ReverseSelectedText()
-    " Get the string to insert
-    let @x = ReverseString(GetSelectedText())
+" wrapper function: apply a transformation on the selected text
+" param: functionToExecute name of the function to apply on the selection
+function! ProcessSelectedText(functionToExecute)
     
-    " remove the old selection
-    normal gvd
+    " get the function to use for the arguments
+    let s:processingFunction = function(a:functionToExecute)
 
-    " insert the new string
-    normal "xp
-endfunction
-
-function! ShuffleSelectedText()
     " Get the string to insert
-    let @x = RandomizeString(GetSelectedText())
-    
-    " remove the old selection
-    normal gvd
+    let @x = s:processingFunction(GetSelectedText())
+    "setreg('x', s:processingFunction(GetSelectedText()))
 
-    " insert the new string
+    " replace the selection with the new string
     normal "xp
-endfunction
 
-function! Wrapper(functionToExecute)
-    return call('a:functionToExecute')
 endfunction
