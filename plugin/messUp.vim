@@ -46,6 +46,25 @@ function! RandomizeString(string)
     return res
 endfunction
 
+
+function! RotateString(string)
+    let res=""
+    let offset=5
+    let i=0
+
+    while i < strlen(a:string)
+        if (i+offset) >= strlen(a:string)
+            let offset=offset-strlen(a:string)
+        endif
+
+        let res=res . strpart(a:string, i+offset, 1)
+
+        let i=i+1
+    endwhile
+    
+    return res
+endfunction
+
 " returns the last text selected
 function! GetSelectedText()
     normal gv"xy
@@ -71,3 +90,4 @@ endfunction
 " create the mappings of the plugin
 vnoremap <Leader>er <Esc>:call ProcessSelectedText('ReverseString')<CR>
 vnoremap <Leader>es <Esc>:call ProcessSelectedText('RandomizeString')<CR>
+vnoremap <Leader>eo <Esc>:call ProcessSelectedText('RotateString')<CR>
