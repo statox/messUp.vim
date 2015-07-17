@@ -57,15 +57,17 @@ endfunc
 " wrapper function: apply a transformation on the selected text
 " param: functionToExecute name of the function to apply on the selection
 function! ProcessSelectedText(functionToExecute)
-    
     " get the function to use for the arguments
     let s:processingFunction = function(a:functionToExecute)
 
     " Get the string to insert
-    let @x = s:processingFunction(GetSelectedText())
-    "setreg('x', s:processingFunction(GetSelectedText()))
+    call setreg('x', s:processingFunction(GetSelectedText()))
 
     " replace the selection with the new string
     normal "xp
 
 endfunction
+
+" create the mappings of the plugin
+vnoremap <Leader>er <Esc>:call ProcessSelectedText('ReverseString')<CR>
+vnoremap <Leader>es <Esc>:call ProcessSelectedText('RandomizeString')<CR>
