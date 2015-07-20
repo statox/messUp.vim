@@ -86,7 +86,14 @@ function! ProcessSelectedText(functionToExecute)
 
 endfunction
 
+" Let the users override the default mapping if they want
+if !exists('g:messUpVim_map_keys')
+    let g:messUpVim_map_keys = 1
+endif
+
 " create the mappings of the plugin
-vnoremap <Leader>er <Esc>:call ProcessSelectedText('ReverseString')<CR>
-vnoremap <Leader>es <Esc>:call ProcessSelectedText('RandomizeString')<CR>
-vnoremap <Leader>eo <Esc>:call ProcessSelectedText('RotateString')<CR>
+if g:messUpVim_map_keys
+    vnoremap <Leader>er <Esc>:call ProcessSelectedText('ReverseString')<CR>
+    vnoremap <Leader>es <Esc>:call ProcessSelectedText('RandomizeString')<CR>
+    vnoremap <Leader>eo <Esc>:call ProcessSelectedText('RotateString')<CR>
+endif
