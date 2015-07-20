@@ -68,9 +68,7 @@ endfunction
 " returns the last text selected
 function! GetSelectedText()
     normal gv"xy
-    let result = getreg("x")
-    normal gv
-    return result
+    return getreg("x")
 endfunc
 
 " wrapper function: apply a transformation on the selected text
@@ -80,9 +78,10 @@ function! ProcessSelectedText(functionToExecute)
     let s:processingFunction = function(a:functionToExecute)
 
     " Get the string to insert
-    call setreg('x', s:processingFunction(GetSelectedText()))
+    call setreg('x', s:processingFunction(GetSelectedText()), getregtype(GetSelectedText()))
 
     " replace the selection with the new string
+    normal gv
     normal "xp
 
 endfunction
