@@ -16,7 +16,7 @@ This plugin allows to transform the last selected text.
 
 This the defaults mappings are not convenient with your current configuration it is posisble to override them. Put the following line in your `.vimrc`:
 
- - let g:messUpVim_map_keys = 0
+    let g:messUpVim_map_keys = 0
 
 Then the mappings to redefine are the folowing:
 
